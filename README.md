@@ -256,7 +256,6 @@ python train_with_regularization.py --epochs 50 --batch-size 32
 ```
 
 ## Results
-<img width="1925" height="805" alt="image" src="https://github.com/user-attachments/assets/683259bd-c562-42be-a520-15f365db1922" />
 <img width="798" height="939" alt="image" src="https://github.com/user-attachments/assets/2f66abbc-cd87-45f8-b9fd-042882cfaf2c" />
 <img width="879" height="1125" alt="image" src="https://github.com/user-attachments/assets/2a77a4e6-5f4b-4aab-b438-9cccff021bbb" />
 <img width="1405" height="939" alt="image" src="https://github.com/user-attachments/assets/16391d81-16d6-4312-af5b-6574149f3988" />
