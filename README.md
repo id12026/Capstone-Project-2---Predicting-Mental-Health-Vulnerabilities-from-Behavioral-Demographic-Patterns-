@@ -263,7 +263,6 @@ python train_with_regularization.py --epochs 50 --batch-size 32
 <img width="958" height="194" alt="image" src="https://github.com/user-attachments/assets/4a6f4638-1255-4305-9346-941274493de3" />
 <img width="958" height="455" alt="image" src="https://github.com/user-attachments/assets/0934ec0c-01b9-4219-9419-325b77565e2e" />
 <img width="2000" height="1037" alt="image" src="https://github.com/user-attachments/assets/9fee5182-4286-4c55-ac5a-ef0862a8d596" />
-<img width="2000" height="1037" alt="image" src="https://github.com/user-attachments/assets/910439e4-9596-47c6-8bb1-058ce9616cf4" />
 <img width="570" height="388" alt="image" src="https://github.com/user-attachments/assets/be01942a-7489-45f0-ac3b-a104592a6eba" />
 <img width="1023" height="497" alt="image" src="https://github.com/user-attachments/assets/bb0c8014-f180-4bb7-9146-b99af33fb561" />
 <img width="1023" height="150" alt="image" src="https://github.com/user-attachments/assets/2e2ccfea-0484-482c-991e-df76f7e1113f" />
