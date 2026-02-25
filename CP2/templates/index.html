@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Vulnerability Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: none;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .risk-low {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+        }
+        .risk-medium {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #ffc107;
+        }
+        .risk-high {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 2px solid #dc3545;
+        }
+        .feature-badge {
+            font-size: 0.85rem;
+            margin: 2px;
+        }
+        .recommendation-card {
+            transition: transform 0.3s;
+            border-left: 4px solid #667eea;
+        }
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+        }
+        .progress {
+            height: 25px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Header -->
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <h1 class="display-4 mb-3" style="color: #667eea;">
+                            <i class="fas fa-brain me-3"></i>
+                            Mental Health Vulnerability Predictor
+                        </h1>
+                        <p class="lead text-muted">
+                            Early detection of mental health vulnerabilities using behavioral patterns
+                        </p>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            This tool uses machine learning to assess mental health vulnerability based on behavioral patterns.
+                            <strong>Not a medical diagnosis.</strong> Always consult healthcare professionals.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prediction Form -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>Behavioral Assessment</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="predictionForm">
+                            <div class="row">
+                                <!-- Demographic Information -->
+                                <div class="col-md-6">
+                                    <h5 class="mb-4" style="color: #667eea;">
+                                        <i class="fas fa-user me-2"></i>Demographic Information
+                                    </h5>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Gender</label>
+                                            <select class="form-select" name="gender" required>
+                                                <option value="">Select</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Age</label>
+                                            <input type="number" class="form-control" name="age" min="18" max="100" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Occupation</label>
+                                        <select class="form-select" name="occupation" required>
+                                            <option value="">Select</option>
+                                            <option value="Student">Student</option>
+                                            <option value="Corporate">Corporate Employee</option>
+                                            <option value="Healthcare">Healthcare Worker</option>
+                                            <option value="IT">IT Professional</option>
+                                            <option value="Self_Employed">Self Employed</option>
+                                            <option value="Unemployed">Unemployed</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Country</label>
+                                        <select class="form-select" name="country" required>
+                                            <option value="">Select</option>
+                                            <option value="United States">United States</option>
+                                            <option value="India">India</option>
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="Canada">Canada</option>
+                                            <option value="Australia">Australia</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Family History of Mental Health Issues</label>
+                                        <select class="form-select" name="family_history" required>
+                                            <option value="">Select</option>
+                                            <option value="No">No</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Days Spent Mostly Indoors</label>
+                                        <select class="form-select" name="days_indoors" required>
+                                            <option value="">Select</option>
+                                            <option value="1-14 days">1-14 days</option>
+                                            <option value="15-30 days">15-30 days</option>
+                                            <option value="31-60 days">31-60 days</option>
+                                            <option value="More than 2 months">More than 2 months</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Behavioral Patterns -->
+                                <div class="col-md-6">
+                                    <h5 class="mb-4" style="color: #667eea;">
+                                        <i class="fas fa-chart-line me-2"></i>Behavioral Patterns (Last 2 Weeks)
+                                    </h5>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Growing Stress Level</label>
+                                        <select class="form-select" name="growing_stress" required>
+                                            <option value="">Select</option>
+                                            <option value="Low">Low</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="High">High</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Mood Swings Frequency</label>
+                                        <select class="form-select" name="mood_swings" required>
+                                            <option value="">Select</option>
+                                            <option value="Low">Low</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="High">High</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Struggle with Coping Mechanisms</label>
+                                        <select class="form-select" name="coping_struggles" required>
+                                            <option value="">Select</option>
+                                            <option value="No">No</option>
+                                            <option value="Sometimes">Sometimes</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Loss of Interest in Work/Studies</label>
+                                        <select class="form-select" name="work_interest" required>
+                                            <option value="">Select</option>
+                                            <option value="No">No</option>
+                                            <option value="Sometimes">Sometimes</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Social Withdrawal/Weakness</label>
+                                        <select class="form-select" name="social_weakness" required>
+                                            <option value="">Select</option>
+                                            <option value="No">No</option>
+                                            <option value="Sometimes">Sometimes</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Changes in Eating/Sleeping Habits</label>
+                                        <select class="form-select" name="changes_habits" required>
+                                            <option value="">Select</option>
+                                            <option value="No">No</option>
+                                            <option value="Sometimes">Sometimes</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn">
+                                    <i class="fas fa-brain me-2"></i>Assess Vulnerability
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div id="resultsSection" class="d-none">
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Assessment Results</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center mb-4">
+                                <div class="col-md-6">
+                                    <div id="riskCard" class="card risk-low p-4 text-center">
+                                        <h3 id="riskLevel" class="mb-3">Low Risk</h3>
+                                        <div class="display-1" id="riskIcon">
+                                            <i class="fas fa-smile"></i>
+                                        </div>
+                                        <p class="mt-3" id="riskDescription">
+                                            Your behavioral patterns indicate low vulnerability to mental health issues.
+                                        </p>
+                                        <div class="mt-3">
+                                            <span class="badge bg-success fs-6 p-2">Confidence: <span id="confidence">85</span>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Risk Probability Distribution</h5>
+                                    <div class="mt-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Low Risk</span>
+                                            <span id="probLow">70%</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-success" id="progressLow" style="width: 70%"></div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Medium Risk</span>
+                                            <span id="probMedium">20%</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-warning" id="progressMedium" style="width: 20%"></div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>High Risk</span>
+                                            <span id="probHigh">10%</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-danger" id="progressHigh" style="width: 10%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Warning Alert for High Risk -->
+                            <div id="warningAlert" class="alert alert-danger d-none">
+                                <h5><i class="fas fa-exclamation-triangle me-2"></i>Important Notice</h5>
+                                <p class="mb-0">
+                                    Your assessment indicates <strong>High Risk</strong>. Please consider seeking professional help.
+                                    Contact mental health helpline: <strong>1-800-950-NAMI (6264)</strong>
+                                </p>
+                            </div>
+
+                            <!-- Top Contributing Factors -->
+                            <div class="mb-4">
+                                <h5 class="mb-3" style="color: #667eea;">
+                                    <i class="fas fa-chart-bar me-2"></i>Top Contributing Factors
+                                </h5>
+                                <div id="factorsContainer" class="d-flex flex-wrap">
+                                    <!-- Factors will be added here by JavaScript -->
+                                </div>
+                            </div>
+
+                            <!-- Behavioral Score -->
+                            <div class="mb-4">
+                                <h5 class="mb-3" style="color: #667eea;">
+                                    <i class="fas fa-calculator me-2"></i>Behavioral Score Analysis
+                                </h5>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p>Your behavioral score: <span id="behavioralScore" class="fw-bold">12</span> / 24</p>
+                                        <div class="progress" style="height: 20px;">
+                                            <div id="behavioralProgress" class="progress-bar bg-info" style="width: 50%"></div>
+                                        </div>
+                                        <small class="text-muted mt-2 d-block">
+                                            Higher scores indicate more pronounced behavioral patterns that may contribute to vulnerability.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Personalized Recommendations -->
+                            <div>
+                                <h5 class="mb-3" style="color: #667eea;">
+                                    <i class="fas fa-hands-helping me-2"></i>Personalized Recommendations
+                                </h5>
+                                <div class="row" id="recommendationsContainer">
+                                    <!-- Recommendations will be added here by JavaScript -->
+                                </div>
+                            </div>
+
+                            <!-- Feedback Section -->
+                            <div class="mt-4 border-top pt-4">
+                                <h6 class="mb-3">Was this assessment helpful?</h6>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-outline-success" onclick="submitFeedback(true)">
+                                        <i class="fas fa-thumbs-up me-1"></i> Yes
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger" onclick="submitFeedback(false)">
+                                        <i class="fas fa-thumbs-down me-1"></i> No
+                                    </button>
+                                </div>
+                                <div id="feedbackMessage" class="mt-2 text-success d-none">
+                                    <i class="fas fa-check me-1"></i> Thank you for your feedback!
+                                </div>
+                            </div>
+
+                            <!-- SHAP Explanation Section -->
+                            <div class="mt-4 border-top pt-4">
+                                <button type="button" class="btn btn-info btn-lg w-100" onclick="generateSHAPExplanation()">
+                                    <i class="fas fa-brain me-2"></i>Generate SHAP Explanation
+                                </button>
+                                <div id="shapExplanation" class="mt-3 d-none">
+                                    <div class="card">
+                                        <div class="card-header bg-info text-white">
+                                            <h6 class="mb-0"><i class="fas fa-chart-bar me-2"></i>SHAP Feature Explanation</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="shapContent">
+                                                <!-- SHAP content will be loaded here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-white py-4" style="background: rgba(0,0,0,0.2);">
+        <div class="container">
+            <p class="mb-0">
+                <i class="fas fa-heart text-danger me-1"></i>
+                Mental Health Vulnerability Predictor | Capstone Project | 
+                <a href="/dashboard" class="text-white text-decoration-none ms-2">
+                    <i class="fas fa-tachometer-alt me-1"></i>Admin Dashboard
+                </a>
+            </p>
+            <small class="text-white-50">
+                Note: This tool is for educational purposes and not a substitute for professional medical advice.
+            </small>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Form submission
+        document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Analyzing...';
+            submitBtn.disabled = true;
+            
+            try {
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+                
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(Object.fromEntries(formData.entries()))
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayResults(result);
+                    document.getElementById('resultsSection').classList.remove('d-none');
+                    window.scrollTo({ top: document.getElementById('resultsSection').offsetTop, behavior: 'smooth' });
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Network error: ' + error.message);
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        function displayResults(result) {
+            // Update risk level
+            const riskLevel = result.risk_level;
+            const riskCard = document.getElementById('riskCard');
+            const riskIcon = document.getElementById('riskIcon');
+            const riskDescription = document.getElementById('riskDescription');
+            
+            // Remove all risk classes
+            riskCard.classList.remove('risk-low', 'risk-medium', 'risk-high');
+            
+            // Add appropriate class
+            if (riskLevel === 'Low Risk') {
+                riskCard.classList.add('risk-low');
+                riskIcon.innerHTML = '<i class="fas fa-smile"></i>';
+                riskDescription.textContent = 'Your behavioral patterns indicate low vulnerability to mental health issues.';
+            } else if (riskLevel === 'Medium Risk') {
+                riskCard.classList.add('risk-medium');
+                riskIcon.innerHTML = '<i class="fas fa-meh"></i>';
+                riskDescription.textContent = 'Your behavioral patterns indicate moderate vulnerability. Consider preventive measures.';
+            } else {
+                riskCard.classList.add('risk-high');
+                riskIcon.innerHTML = '<i class="fas fa-frown"></i>';
+                riskDescription.textContent = 'Your behavioral patterns indicate high vulnerability. Please consider seeking support.';
+            }
+            
+            document.getElementById('riskLevel').textContent = riskLevel;
+            document.getElementById('confidence').textContent = result.confidence;
+            
+            // Update probabilities
+            document.getElementById('probLow').textContent = result.probabilities['Low Risk'] + '%';
+            document.getElementById('probMedium').textContent = result.probabilities['Medium Risk'] + '%';
+            document.getElementById('probHigh').textContent = result.probabilities['High Risk'] + '%';
+            
+            document.getElementById('progressLow').style.width = result.probabilities['Low Risk'] + '%';
+            document.getElementById('progressMedium').style.width = result.probabilities['Medium Risk'] + '%';
+            document.getElementById('progressHigh').style.width = result.probabilities['High Risk'] + '%';
+            
+            // Show/hide warning
+            const warningAlert = document.getElementById('warningAlert');
+            if (result.warning) {
+                warningAlert.classList.remove('d-none');
+            } else {
+                warningAlert.classList.add('d-none');
+            }
+            
+            // Update contributing factors
+            const factorsContainer = document.getElementById('factorsContainer');
+            factorsContainer.innerHTML = '';
+            
+            result.top_contributing_factors.forEach(factor => {
+                const badge = document.createElement('span');
+                badge.className = 'badge bg-primary feature-badge p-2';
+                badge.textContent = factor;
+                factorsContainer.appendChild(badge);
+            });
+            
+            // Update behavioral score
+            const maxScore = 24;
+            const score = result.behavioral_score;
+            const percentage = (score / maxScore) * 100;
+            
+            document.getElementById('behavioralScore').textContent = score + ' / ' + maxScore;
+            document.getElementById('behavioralProgress').style.width = percentage + '%';
+            
+            // Update recommendations
+            const recommendationsContainer = document.getElementById('recommendationsContainer');
+            recommendationsContainer.innerHTML = '';
+            
+            result.recommendations.forEach((rec, index) => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 mb-3';
+                
+                const card = document.createElement('div');
+                card.className = 'card recommendation-card h-100';
+                
+                const cardBody = document.createElement('div');
+                cardBody.className = 'card-body';
+                
+                const title = document.createElement('h6');
+                title.className = 'card-title';
+                title.innerHTML = `<i class="fas fa-lightbulb me-2 text-warning"></i>Suggestion ${index + 1}`;
+                
+                const text = document.createElement('p');
+                text.className = 'card-text';
+                text.textContent = rec;
+                
+                cardBody.appendChild(title);
+                cardBody.appendChild(text);
+                card.appendChild(cardBody);
+                col.appendChild(card);
+                recommendationsContainer.appendChild(col);
+            });
+        }
+
+        async function submitFeedback(accurate) {
+            try {
+                const response = await fetch('/feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        accurate: accurate,
+                        comments: ''
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    const feedbackMessage = document.getElementById('feedbackMessage');
+                    feedbackMessage.classList.remove('d-none');
+                    setTimeout(() => {
+                        feedbackMessage.classList.add('d-none');
+                    }, 3000);
+                }
+            } catch (error) {
+                alert('Error submitting feedback');
+            }
+        }
+
+        async function generateSHAPExplanation() {
+            try {
+                // Get current form data
+                const form = document.getElementById('predictionForm');
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                
+                // Show loading state
+                const shapButton = event.target;
+                const originalText = shapButton.innerHTML;
+                shapButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating SHAP Explanation...';
+                shapButton.disabled = true;
+                
+                const response = await fetch('/shap_explanation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    displaySHAPExplanation(result);
+                    document.getElementById('shapExplanation').classList.remove('d-none');
+                    window.scrollTo({ top: document.getElementById('shapExplanation').offsetTop, behavior: 'smooth' });
+                } else {
+                    alert('Error generating SHAP explanation: ' + result.error);
+                }
+            } catch (error) {
+                alert('Network error: ' + error.message);
+            } finally {
+                // Restore button state
+                const shapButton = document.querySelector('[onclick="generateSHAPExplanation()"]');
+                shapButton.innerHTML = '<i class="fas fa-brain me-2"></i>Generate SHAP Explanation';
+                shapButton.disabled = false;
+            }
+        }
+
+        function displaySHAPExplanation(result) {
+            const shapContent = document.getElementById('shapContent');
+            
+            let html = `
+                <div class="mb-3">
+                    <h6>Predicted Class: ${result.predicted_class === 0 ? 'Low Risk' : result.predicted_class === 1 ? 'Medium Risk' : 'High Risk'}</h6>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <small class="text-muted">Low Risk</small>
+                            <div class="progress" style="height: 15px;">
+                                <div class="progress-bar bg-success" style="width: ${(result.class_probabilities['Low Risk'] * 100).toFixed(1)}%"></div>
+                            </div>
+                            <small>${(result.class_probabilities['Low Risk'] * 100).toFixed(1)}%</small>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted">Medium Risk</small>
+                            <div class="progress" style="height: 15px;">
+                                <div class="progress-bar bg-warning" style="width: ${(result.class_probabilities['Medium Risk'] * 100).toFixed(1)}%"></div>
+                            </div>
+                            <small>${(result.class_probabilities['Medium Risk'] * 100).toFixed(1)}%</small>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted">High Risk</small>
+                            <div class="progress" style="height: 15px;">
+                                <div class="progress-bar bg-danger" style="width: ${(result.class_probabilities['High Risk'] * 100).toFixed(1)}%"></div>
+                            </div>
+                            <small>${(result.class_probabilities['High Risk'] * 100).toFixed(1)}%</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <h6>Top Contributing Features:</h6>
+                <div class="mb-3">
+            `;
+            
+            result.top_contributing_features.forEach((feature, index) => {
+                const impactColor = feature.impact === 'positive' ? 'danger' : 'success';
+                const impactIcon = feature.impact === 'positive' ? 'arrow-up' : 'arrow-down';
+                const impactText = feature.impact === 'positive' ? 'Increases Risk' : 'Decreases Risk';
+                
+                html += `
+                    <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                        <div>
+                            <strong>${index + 1}. ${feature.feature}</strong>
+                            <br>
+                            <small class="text-muted">Contribution: ${feature.contribution.toFixed(4)}</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-${impactColor}">
+                                <i class="fas fa-${impactIcon} me-1"></i>${impactText}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                </div>
+                <small class="text-muted">
+                    <i class="fas fa-info-circle me-1"></i>
+                    SHAP (SHapley Additive exPlanations) shows how each feature contributed to this specific prediction.
+                    Positive contributions push the prediction toward higher risk, while negative contributions push toward lower risk.
+                </small>
+            `;
+            
+            shapContent.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

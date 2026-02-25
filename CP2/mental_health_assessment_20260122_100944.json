@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-01-22T10:09:44.705841",
+  "responses": {
+    "Gender": "Male",
+    "Country": "United States",
+    "Occupation": "Corporate Employee",
+    "self_employed": "No",
+    "family_history": "No",
+    "Days_Indoors": "15-30 days",
+    "Growing_Stress": "No",
+    "Changes_Habits": "No",
+    "Mental_Health_History": "No",
+    "Mood_Swings": "Medium",
+    "Coping_Struggles": "No",
+    "Work_Interest": "No",
+    "Social_Weakness": "No",
+    "mental_health_interview": "No",
+    "care_options": "No",
+    "sleep_patterns": "Fair",
+    "physical_activity": "Occasionally",
+    "social_support": "No",
+    "work_pressure": "Medium"
+  },
+  "prediction": {
+    "vulnerability_score": 50,
+    "risk_level": "Medium Risk",
+    "probability": 0.5,
+    "confidence": "Prediction error - using default"
+  },
+  "analysis": {
+    "risk_factors": [
+      "Lack of professional support",
+      "Unaware of care options",
+      "Limited social support"
+    ],
+    "protective_factors": [
+      "High stress levels",
+      "Social isolation",
+      "Coping struggles",
+      "Lost work interest",
+      "Significant indoor time"
+    ],
+    "total_risk_factors": 3,
+    "total_protective_factors": 7
+  },
+  "recommendations": [
+    "\ud83d\udfe1 **Preventive Action Recommended:** Consider preventive counseling or therapy",
+    "\ud83e\uddd8 **Stress Management:** Practice daily mindfulness or meditation",
+    "\ud83c\udfc3 **Physical Activity:** Engage in regular exercise (30 mins, 3-5 times/week)",
+    "\ud83d\udcc5 **Routine:** Establish and maintain a consistent daily routine",
+    "\ud83d\udcda **Education:** Learn about mental health awareness and coping strategies"
+  ]
+}
