@@ -256,6 +256,7 @@ python train_with_regularization.py --epochs 50 --batch-size 32
 ```
 
 ## Results
+<img width="1925" height="805" alt="image" src="https://github.com/user-attachments/assets/1a566569-6c8a-4056-88e8-693d27006821" />
 
 ### Model Performance
 - **Target Accuracy**: 84-86% (to prevent overfitting)
@@ -297,24 +298,3 @@ python train_with_regularization.py --epochs 50 --batch-size 32
 - Improved awareness and timely psychological support
 - Benefits students, employees, and remote populations
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For questions or support, please contact the project team members listed above.
-
-## Acknowledgments
-
-- Dr. Resham Raj Shivwanshi for supervision and guidance
-- Mental health professionals who provided insights
-- Open-source community for the tools and libraries used
