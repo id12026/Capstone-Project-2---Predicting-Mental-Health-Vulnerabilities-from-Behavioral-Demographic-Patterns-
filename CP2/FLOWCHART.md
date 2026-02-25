@@ -1,4 +1,4 @@
-# Mental Health Vulnerability Prediction System - Flowchart
+# Predicting Mental Health Vulnerabilities from Behavioral & Demographic Patterns - Flowchart
 
 ## System Architecture Flowchart
 
